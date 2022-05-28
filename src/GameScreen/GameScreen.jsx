@@ -14,7 +14,7 @@ export default function GameScreen(props) {
 				{data.current_question.answers.map((answer) => (
 					<Answer text={answer} />
 				))}
-				<div className="flex justify-center items-center border-2 border-white w-2/5 h-16 mt-8 rounded-xl hover:bg-blue hover:border-blue transition-all cursor-pointer">
+				<div className="flex justify-center items-center border-2 border-white w-2/5 h-16 mt-8 rounded-xl hover:bg-blue hover:border-blue transition-all cursor-pointer shadow-xl">
 					<p>Antwort abgeben</p>
 				</div>
 			</div>
