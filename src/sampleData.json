@@ -1,0 +1,28 @@
+{
+	"players": ["Pferdinand", "Spackomat5000", "baddley"],
+	"player_scores": [
+		{
+            "place" : 1,
+			"player": "baddley",
+			"score": 15
+		},
+		{
+            "place" : 2,
+			"player": "Spackomat5000",
+			"score": 13
+		},
+		{
+            "place" : 3,
+			"player": "Pferdinand",
+			"score": 9
+		}
+	],
+	"round_info": {
+		"total_rounds": 25,
+		"current_round": 12
+	},
+	"current_question": {
+		"question": "Wie hoch ist der Mount Everest?",
+		"answers": ["8200m", "8848m", "8910m", "9100m"]
+	}
+}
