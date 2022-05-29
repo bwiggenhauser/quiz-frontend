@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import data from "./sampleData.json";
 import "./App.css";
 import GameScreen from "./GameScreen/GameScreen";
-import LobbyScreen from "./LobbyScreen/LobbyScreen";
+import LandingScreen from "./LandingScreen/LandingScreen";
 
 function App() {
 	const [questionData, setQuestionData] = useState(data.current_question);
@@ -19,9 +19,17 @@ function App() {
 		socket.on("test", (data) => {
 			console.log(data);
 		});
+
+		socket.on("lobby-info", (data) => {
+			console.log(data);
+		});
 		setSocket(socket);
 		return () => socket.close();
 	}, [setSocket]);
+
+	function joinLobby(lobbyCode) {
+		socket.emit("join-lobby", lobbyCode);
+	}
 
 	function addPlayer() {
 		let current = playerData;
@@ -38,8 +46,8 @@ function App() {
 			<h1 className="text-white text-6xl font-extrabold text-center pt-8 pb-8">
 				Quiz.io
 			</h1>
-            
-            <LobbyScreen />
+
+			<LandingScreen joinFunction={joinLobby} />
 
 			{/* <GameScreen
 				questions={questionData}
