@@ -33,6 +33,18 @@ export default function GameScreen(props) {
 					Runde: {data.round_info.current_round} /{" "}
 					{data.round_info.total_rounds}
 				</p>
+
+				<h1 className="text-4xl mt-16 mb-8">Namen ändern</h1>
+				<div>
+					<input
+						type="text"
+						className="py-2 px-4 rounded-xl text-darkest-blue w-64 transition-all shadow-xl"
+						placeholder="Ändere deinen Namen ..."
+					/>
+					<button className="transition-all bg-blue py-2 px-4 rounded-xl ml-4 text-white shadow-xl border-darkest-blue border-2 hover:border-white hover:bg-darkest-blue">
+						Namen ändern
+					</button>
+				</div>
 			</div>
 		</div>
 	);
