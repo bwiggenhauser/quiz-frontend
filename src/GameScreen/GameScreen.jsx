@@ -2,14 +2,11 @@ import React from "react";
 import Answer from "../Answer/Answer";
 
 export default function GameScreen(props) {
-	console.log(props);
 	return (
 		<div className="bg-darkest-blue flex flex-row justify-between items-start text-white">
 			{/* Question Container */}
 			<div className="flex flex-col justify-center items-center w-2/3">
-				<h1 className="text-4xl py-8">
-					{props.questions.question}
-				</h1>
+				<h1 className="text-4xl py-8">{props.questions.question}</h1>
 				{props.questions.answers.map((answer) => (
 					<Answer text={answer} />
 				))}
@@ -21,9 +18,9 @@ export default function GameScreen(props) {
 			{/* Player Scores */}
 			<div className="py-8 w-1/3 flex flex-col items-start justify-start">
 				<h1 className="text-4xl mb-8">Scoreboard</h1>
-				{props.players.map((stats) => (
+				{props.players.map((player) => (
 					<p className="text-xl mb-2">
-						{stats.place}. {stats.player}: {stats.score}
+						{player.place}. {player.player}: {player.score}
 					</p>
 				))}
 
