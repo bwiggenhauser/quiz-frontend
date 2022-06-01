@@ -17,7 +17,7 @@ export default function LobbyScreen(props) {
 
 			{/* Start Game Button */}
 			<button
-				onClick={props.startGameFunctionme}
+				onClick={props.startGameFunction}
 				className="mt-16 transition-all bg-blue py-2 w-40 rounded-xl ml-4 text-white shadow-xl border-blue border-2 hover:border-white hover:bg-darkest-blue">
 				Spiel starten
 			</button>
