@@ -8,9 +8,7 @@ import Title from "./Title/Title"
 import LobbyScreen from "./LobbyScreen/LobbyScreen"
 
 function App() {
-	const [questionData, setQuestionData] = useState(data.current_question)
-	const [playerData, setPlayerData] = useState(data.player_scores)
-	const [roundData, setRoundData] = useState(data.round_info)
+	const [gameData, setGameData] = useState({})
 	const [socket, setSocket] = useState(null)
 	const [status, setStatus] = useState("in-landing")
 	const [lobby, setLobby] = useState(null)
@@ -18,8 +16,6 @@ function App() {
 	const [lobbyMembers, setLobbyMembers] = useState([])
 
 	const BACKEND_URL = "localhost:4005"
-
-	useEffect(() => {}, [])
 
 	useEffect(() => {
 		const socket = io(BACKEND_URL)
@@ -39,6 +35,15 @@ function App() {
 			setLobby(data)
 		})
 
+		socket.on("your-game-started", () => {
+			setStatus("in-game")
+		})
+
+		socket.on("your-game-info", (info) => {
+			setGameData(info)
+			console.log(info)
+		})
+
 		setSocket(socket)
 		return () => socket.close()
 	}, [setSocket])
@@ -51,15 +56,10 @@ function App() {
 		socket.emit("change-client-name", newName)
 	}
 
-	function addPlayer() {
-		let current = playerData
-		current.push({
-			place: 4,
-			player: "Vimme",
-			score: 7,
-		})
-		setPlayerData([...current])
+	function startGame() {
+		socket.emit("start-game", lobby)
 	}
+
 	if (status === "in-landing") {
 		return (
 			<div className="App bg-darkest-blue h-screen">
@@ -74,14 +74,18 @@ function App() {
 		return (
 			<div className="App bg-darkest-blue h-screen">
 				<Title name={ownName} />
-				<LobbyScreen lobbyName={lobby} members={lobbyMembers} />
+				<LobbyScreen
+					lobbyName={lobby}
+					members={lobbyMembers}
+					startGameFunction={startGame}
+				/>
 			</div>
 		)
-	} else if (status == "in-game") {
+	} else if (status === "in-game") {
 		return (
 			<div className="App bg-darkest-blue h-screen">
 				<Title name={ownName} />
-				<GameScreen />
+				<GameScreen gameData={gameData} />
 			</div>
 		)
 	} else {
