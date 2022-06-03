@@ -3,20 +3,23 @@ import Answer from "../Answer/Answer"
 
 export default function GameScreen(props) {
 	const current_question =
-		props.gameData.all_questions[props.gameData.round_info.current][
-			"question"
-		]
+		props.gameData.all_questions[props.gameData.round_info.current]["question"]
 	const current_answers =
-		props.gameData.all_questions[props.gameData.round_info.current][
-			"answers"
-		]
+		props.gameData.all_questions[props.gameData.round_info.current]["answers"]
 	const players = props.gameData.players
 
+
+    // NÄCHSTE FRAGE BUTTON WIRD ERST ANGEZEIGT, WENN ALLE CLIENTS EINE ANTWORT ABGEGEBEN HABEN
+	let showNextQuestionButton = false
+	if (props.gameData.player_answers !== undefined) {
+		const playersArray = Object.keys(props.gameData.player_answers)
+		if (playersArray.length === props.gameData.players.length) {
+			showNextQuestionButton = true
+		}
+	}
+
 	function sendAnswer() {
-		const answer = document.querySelector(
-			"input[name='answers']:checked"
-		).value
-		console.log(answer)
+		const answer = document.querySelector("input[name='answers']:checked").value
 		if (answer !== undefined) {
 			props.sendAnswerFunction(answer)
 		}
@@ -35,6 +38,11 @@ export default function GameScreen(props) {
 					className="flex justify-center items-center border-2 hover:border-white w-2/5 h-16 mt-8 rounded-xl bg-blue hover:bg-darkest-blue border-blue transition-all cursor-pointer shadow-xl">
 					<p>Antwort abgeben</p>
 				</div>
+				{showNextQuestionButton && (
+					<button className="transition-all cursor-pointer mt-8 bg-blue hover:bg-darkest-blue border-2 border-blue hover:border-white w-1/5 h-10 rounded-xl">
+						Nächste Frage
+					</button>
+				)}
 			</div>
 
 			{/* Player Scores */}
