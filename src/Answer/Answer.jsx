@@ -16,9 +16,7 @@ export default function Answer(props) {
 				name="answers"
 				value={props.text}
 			/>{" "}
-			<label
-				className="pl-4 text-xl cursor-pointer w-full"
-				htmlFor={props.text}>
+			<label className="pl-4 text-xl cursor-pointer w-full" htmlFor={props.text}>
 				{props.text + players}
 			</label>
 		</div>
