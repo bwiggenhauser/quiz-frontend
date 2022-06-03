@@ -14,8 +14,14 @@ function App() {
 	const [lobby, setLobby] = useState(null)
 	const [ownName, setOwnName] = useState("test")
 	const [lobbyMembers, setLobbyMembers] = useState([])
+	const [answers, setAnswers] = useState({})
 
 	const BACKEND_URL = "localhost:4005"
+
+	useEffect(() => {
+		console.log("Game Data Set!")
+		console.log(gameData)
+	}, [gameData])
 
 	useEffect(() => {
 		const socket = io(BACKEND_URL)
@@ -41,7 +47,23 @@ function App() {
 
 		socket.on("your-game-info", (info) => {
 			setGameData(info)
-			console.log(info)
+		})
+
+		socket.on("room-answers", (data) => {
+			console.log(data)
+			let roundIndex = data.round_info.current
+			const answers = data.all_questions[roundIndex].answers
+			let allAnswers = {}
+			for (const a of answers) {
+				let allClients = []
+				for (const p of Object.keys(data.player_answers)) {
+					if (data.player_answers[p] === a) {
+						allClients.push(p)
+					}
+				}
+				allAnswers[a] = allClients
+			}
+			setAnswers(allAnswers)
 		})
 
 		setSocket(socket)
@@ -58,6 +80,13 @@ function App() {
 
 	function startGame() {
 		socket.emit("start-game", lobby)
+	}
+
+	function sendAnswer(answer) {
+		socket.emit("my-answer", {
+			answer: answer,
+			room: lobby,
+		})
 	}
 
 	if (status === "in-landing") {
@@ -85,7 +114,11 @@ function App() {
 		return (
 			<div className="App bg-darkest-blue h-screen">
 				<Title name={ownName} />
-				<GameScreen gameData={gameData} />
+				<GameScreen
+					gameData={gameData}
+					sendAnswerFunction={sendAnswer}
+					answers={answers}
+				/>
 			</div>
 		)
 	} else {
