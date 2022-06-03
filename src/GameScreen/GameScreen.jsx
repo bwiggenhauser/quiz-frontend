@@ -2,7 +2,6 @@ import React from "react"
 import Answer from "../Answer/Answer"
 
 export default function GameScreen(props) {
-	console.log(props)
 	const current_question =
 		props.gameData.all_questions[props.gameData.round_info.current][
 			"question"
@@ -12,15 +11,28 @@ export default function GameScreen(props) {
 			"answers"
 		]
 	const players = props.gameData.players
+
+	function sendAnswer() {
+		const answer = document.querySelector(
+			"input[name='answers']:checked"
+		).value
+		console.log(answer)
+		if (answer !== undefined) {
+			props.sendAnswerFunction(answer)
+		}
+	}
+
 	return (
 		<div className="bg-darkest-blue flex flex-row justify-between items-start text-white">
 			{/* Question Container */}
 			<div className="flex flex-col justify-center items-center w-2/3">
 				<h1 className="text-2xl py-8">{current_question}</h1>
 				{current_answers.map((answer) => (
-					<Answer text={answer} />
+					<Answer text={answer} players={props.answers[answer]} />
 				))}
-				<div className="flex justify-center items-center border-2 hover:border-white w-2/5 h-16 mt-8 rounded-xl bg-blue hover:bg-darkest-blue border-blue transition-all cursor-pointer shadow-xl">
+				<div
+					onClick={sendAnswer}
+					className="flex justify-center items-center border-2 hover:border-white w-2/5 h-16 mt-8 rounded-xl bg-blue hover:bg-darkest-blue border-blue transition-all cursor-pointer shadow-xl">
 					<p>Antwort abgeben</p>
 				</div>
 			</div>
