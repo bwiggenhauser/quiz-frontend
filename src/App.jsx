@@ -50,6 +50,7 @@ function App() {
 		})
 
 		socket.on("room-answers", (data) => {
+			setGameData(data)
 			console.log(data)
 			let roundIndex = data.round_info.current
 			const answers = data.all_questions[roundIndex].answers
@@ -93,10 +94,7 @@ function App() {
 		return (
 			<div className="App bg-darkest-blue h-screen">
 				<Title name={ownName} />
-				<LandingScreen
-					joinFunction={joinLobby}
-					changeNameFunction={changeMyName}
-				/>
+				<LandingScreen joinFunction={joinLobby} changeNameFunction={changeMyName} />
 			</div>
 		)
 	} else if (status === "in-lobby") {
@@ -114,11 +112,7 @@ function App() {
 		return (
 			<div className="App bg-darkest-blue h-screen">
 				<Title name={ownName} />
-				<GameScreen
-					gameData={gameData}
-					sendAnswerFunction={sendAnswer}
-					answers={answers}
-				/>
+				<GameScreen gameData={gameData} sendAnswerFunction={sendAnswer} answers={answers} />
 			</div>
 		)
 	} else {
