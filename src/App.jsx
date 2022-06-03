@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { io } from "socket.io-client"
-import data from "./sampleData.json"
 import "./App.css"
 import GameScreen from "./GameScreen/GameScreen"
 import LandingScreen from "./LandingScreen/LandingScreen"
@@ -19,11 +18,6 @@ function App() {
 	const BACKEND_URL = "localhost:4005"
 
 	useEffect(() => {
-		console.log("Game Data Set!")
-		console.log(gameData)
-	}, [gameData])
-
-	useEffect(() => {
 		const socket = io(BACKEND_URL)
 
 		socket.on("your-name", (data) => {
@@ -32,7 +26,6 @@ function App() {
 		})
 
 		socket.on("your-room-members", (data) => {
-			console.log(data)
 			setLobbyMembers(data)
 		})
 
@@ -47,11 +40,12 @@ function App() {
 
 		socket.on("your-game-info", (info) => {
 			setGameData(info)
+			setAnswers({})
+			uncheckRadios()
 		})
 
 		socket.on("room-answers", (data) => {
 			setGameData(data)
-			console.log(data)
 			let roundIndex = data.round_info.current
 			const answers = data.all_questions[roundIndex].answers
 			let allAnswers = {}
@@ -71,6 +65,16 @@ function App() {
 		return () => socket.close()
 	}, [setSocket])
 
+	function uncheckRadios() {
+		let elements = document.getElementsByTagName("input")
+
+		for (var i = 0; i < elements.length; i++) {
+			if (elements[i].type == "radio") {
+				elements[i].checked = false
+			}
+		}
+	}
+
 	function joinLobby(lobbyCode) {
 		socket.emit("join-room", lobbyCode)
 	}
@@ -88,6 +92,10 @@ function App() {
 			answer: answer,
 			room: lobby,
 		})
+	}
+
+	function nextQuestion() {
+		socket.emit("next-question", lobby)
 	}
 
 	if (status === "in-landing") {
@@ -112,7 +120,12 @@ function App() {
 		return (
 			<div className="App bg-darkest-blue h-screen">
 				<Title name={ownName} />
-				<GameScreen gameData={gameData} sendAnswerFunction={sendAnswer} answers={answers} />
+				<GameScreen
+					gameData={gameData}
+					sendAnswerFunction={sendAnswer}
+					answers={answers}
+					nextQuestionFunction={nextQuestion}
+				/>
 			</div>
 		)
 	} else {
