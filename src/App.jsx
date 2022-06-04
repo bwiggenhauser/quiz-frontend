@@ -17,7 +17,8 @@ function App() {
 	const [answers, setAnswers] = useState({})
 	const [scores, setScores] = useState({})
 
-	const BACKEND_URL = "localhost:4005"
+	//const BACKEND_URL = "localhost:4005"
+	const BACKENDURL = "https://quizbackend.bwiggenhauser.de"
 
 	useEffect(() => {
 		const socket = io(BACKEND_URL)
