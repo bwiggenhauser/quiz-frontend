@@ -5,6 +5,7 @@ import GameScreen from "./GameScreen/GameScreen"
 import LandingScreen from "./LandingScreen/LandingScreen"
 import Title from "./Title/Title"
 import LobbyScreen from "./LobbyScreen/LobbyScreen"
+import ScoresScreen from "./ScoresScreen/ScoresScreen"
 
 function App() {
 	const [gameData, setGameData] = useState({})
@@ -14,6 +15,7 @@ function App() {
 	const [ownName, setOwnName] = useState("test")
 	const [lobbyMembers, setLobbyMembers] = useState([])
 	const [answers, setAnswers] = useState({})
+	const [scores, setScores] = useState({})
 
 	const BACKEND_URL = "localhost:4005"
 
@@ -59,6 +61,11 @@ function App() {
 				allAnswers[a] = allClients
 			}
 			setAnswers(allAnswers)
+		})
+
+		socket.on("game-finished", (data) => {
+			setScores(data)
+			setStatus("finished")
 		})
 
 		setSocket(socket)
@@ -126,6 +133,13 @@ function App() {
 					answers={answers}
 					nextQuestionFunction={nextQuestion}
 				/>
+			</div>
+		)
+	} else if (status === "finished") {
+		return (
+			<div className="App bg-darkest-blue h-screen">
+				<Title name={ownName} />
+				<ScoresScreen scores={scores} />
 			</div>
 		)
 	} else {
