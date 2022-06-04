@@ -28,6 +28,10 @@ export default function GameScreen(props) {
 		props.nextQuestionFunction()
 	}
 
+	function orderPlayersArrayByScore(objs) {
+		return objs.sort((a, b) => b.score - a.score)
+	}
+
 	return (
 		<div className="bg-darkest-blue flex flex-row justify-between items-start text-white">
 			{/* Question Container */}
@@ -53,7 +57,7 @@ export default function GameScreen(props) {
 			{/* Player Scores */}
 			<div className="py-8 w-1/3 flex flex-col items-start justify-start">
 				<h1 className="text-2xl mb-8">Scoreboard</h1>
-				{players.map((player) => (
+				{orderPlayersArrayByScore(players).map((player) => (
 					<p className="mb-2 text-base">
 						{player.name}: {player.score}
 					</p>
