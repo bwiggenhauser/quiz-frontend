@@ -28,6 +28,10 @@ function App() {
 			setOwnName(data)
 		})
 
+		socket.on("info", (data) => {
+			console.log(data)
+		})
+
 		socket.on("your-room-members", (data) => {
 			setLobbyMembers(data)
 		})
