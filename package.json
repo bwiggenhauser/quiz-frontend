@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "he": "^1.2.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "socket.io-client": "^4.5.1"
