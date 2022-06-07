@@ -8,53 +8,58 @@ import LobbyScreen from "./LobbyScreen/LobbyScreen"
 import ScoresScreen from "./ScoresScreen/ScoresScreen"
 
 function App() {
-	const [gameData, setGameData] = useState({})
 	const [socket, setSocket] = useState(null)
 	const [status, setStatus] = useState("in-landing")
-	const [lobby, setLobby] = useState(null)
-	const [ownName, setOwnName] = useState("test")
+	const [lobby, setLobby] = useState("")
+	const [ownName, setOwnName] = useState(null)
 	const [lobbyMembers, setLobbyMembers] = useState([])
 	const [answers, setAnswers] = useState({})
 	const [scores, setScores] = useState({})
+	const [myGame, setMyGame] = useState({})
 
-	//const BACKEND_URL = "localhost:4005"
-	const BACKEND_URL = "https://quizbackend.bwiggenhauser.de"
+	const BACKEND_URL = "localhost:4005"
+	//const BACKEND_URL = "https://quizbackend.bwiggenhauser.de"
 
 	useEffect(() => {
 		const socket = io(BACKEND_URL)
 
-		socket.on("your-name", (data) => {
-			console.log(`Received my new name: ${data}`)
-			setOwnName(data)
+		socket.on("your-name-changed", (newName) => {
+			console.log(`Received my new name: ${newName}`)
+			setOwnName(newName)
+		})
+
+		socket.on("your-room-name", (room) => {
+			console.log(`My lobby has been set to ${room}`)
+			setStatus("in-lobby")
+			setLobby(room)
+		})
+
+		socket.on("your-room-members", (roomMembers) => {
+			console.log(`Received my room members:`)
+			console.log(roomMembers)
+			setLobbyMembers(roomMembers)
+		})
+
+		socket.on("game-data", async (data) => {
+			uncheckRadios()
+			setAnswers({})
+			setMyGame(data)
+		})
+
+		socket.on("all-players", (allPlayers) => {
+			console.log(allPlayers)
 		})
 
 		socket.on("info", (data) => {
 			console.log(data)
 		})
 
-		socket.on("your-room-members", (data) => {
-			setLobbyMembers(data)
-		})
-
-		socket.on("your-room-name", (data) => {
-			setStatus("in-lobby")
-			setLobby(data)
-		})
-
 		socket.on("your-game-started", () => {
 			setStatus("in-game")
 		})
 
-		socket.on("your-game-info", (info) => {
-			setGameData(info)
-			setAnswers({})
-			uncheckRadios()
-		})
-
 		socket.on("room-answers", (data) => {
-			setGameData(data)
-			let roundIndex = data.round_info.current
-			const answers = data.all_questions[roundIndex].answers
+			const answers = data.current_question.answers
 			let allAnswers = {}
 			for (const a of answers) {
 				let allClients = []
@@ -65,11 +70,12 @@ function App() {
 				}
 				allAnswers[a] = allClients
 			}
+			setMyGame(data)
 			setAnswers(allAnswers)
 		})
 
 		socket.on("game-finished", (data) => {
-			setScores(data)
+			setScores(data.scoreboard)
 			setStatus("finished")
 		})
 
@@ -133,7 +139,7 @@ function App() {
 			<div className="App bg-darkest-blue h-screen">
 				<Title name={ownName} />
 				<GameScreen
-					gameData={gameData}
+					gameinfo={myGame}
 					sendAnswerFunction={sendAnswer}
 					answers={answers}
 					nextQuestionFunction={nextQuestion}

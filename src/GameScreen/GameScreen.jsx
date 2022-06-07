@@ -2,17 +2,13 @@ import React from "react"
 import Answer from "../Answer/Answer"
 
 export default function GameScreen(props) {
-	const current_question =
-		props.gameData.all_questions[props.gameData.round_info.current]["question"]
-	const current_answers =
-		props.gameData.all_questions[props.gameData.round_info.current]["answers"]
-	const players = props.gameData.players
-
 	// NÄCHSTE FRAGE BUTTON WIRD ERST ANGEZEIGT, WENN ALLE CLIENTS EINE ANTWORT ABGEGEBEN HABEN
+	console.log(props)
 	let showNextQuestionButton = false
-	if (props.gameData.player_answers !== undefined) {
-		const playersArray = Object.keys(props.gameData.player_answers)
-		if (playersArray.length === props.gameData.players.length) {
+	if (props.gameinfo.player_answers !== undefined) {
+		const playersArray = Object.keys(props.gameinfo.player_answers)
+		console.log(playersArray)
+		if (playersArray.length === props.gameinfo.scoreboard.length) {
 			showNextQuestionButton = true
 		}
 	}
@@ -36,9 +32,9 @@ export default function GameScreen(props) {
 		<div className="bg-darkest-blue flex flex-row justify-between items-start text-white">
 			{/* Question Container */}
 			<div className="flex flex-col justify-center items-center w-2/3">
-				<h1 className="text-2xl py-8">{current_question}</h1>
-				{current_answers.map((answer) => (
-					<Answer text={answer} players={props.answers[answer]} />
+				<h1 className="text-2xl py-8">{props.gameinfo.current_question.question}</h1>
+				{props.gameinfo.current_question.answers.map((answer) => (
+					<Answer key={answer.toString()} text={answer} players={props.answers[answer]} />
 				))}
 				<div
 					onClick={sendAnswer}
@@ -57,16 +53,15 @@ export default function GameScreen(props) {
 			{/* Player Scores */}
 			<div className="py-8 w-1/3 flex flex-col items-start justify-start">
 				<h1 className="text-2xl mb-8">Scoreboard</h1>
-				{orderPlayersArrayByScore(players).map((player) => (
-					<p className="mb-2 text-base">
+				{orderPlayersArrayByScore(props.gameinfo.scoreboard).map((player) => (
+					<p key={player.name} className="mb-2 text-base">
 						{player.name}: {player.score}
 					</p>
 				))}
 
 				<h1 className="text-4xl mt-16 mb-8">Status</h1>
 				<p className="text-base mb-2">
-					Runde: {props.gameData.round_info.current + 1} /{" "}
-					{props.gameData.round_info.total}
+					Runde: {props.gameinfo.current_round} / {props.gameinfo.total_rounds}
 				</p>
 			</div>
 		</div>

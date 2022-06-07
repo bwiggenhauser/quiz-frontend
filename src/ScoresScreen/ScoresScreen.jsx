@@ -6,7 +6,7 @@ export default function ScoresScreen(props) {
 		<div className="text-center text-white text-xl mt-8">
 			<h1 className="text-2xl">Scoreboard</h1>
 			{props.scores.map((e) => (
-				<p>
+				<p key={e.name}>
 					{e.name}: {e.score}
 				</p>
 			))}
