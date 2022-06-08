@@ -52,11 +52,14 @@ function App() {
 			setLobbyTotalRounds(data)
 		})
 
+		socket.on("next-round-starting", () => {
+			uncheckRadios()
+			setAnswers({})
+		})
+
 		socket.on("game-data", async (data) => {
 			console.log("Received game data")
 			console.log(data)
-			uncheckRadios()
-			setAnswers({})
 			setMyGame(data)
 		})
 
