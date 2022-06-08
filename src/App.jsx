@@ -20,8 +20,8 @@ function App() {
 	const [showLoading, setShowLoading] = useState(false)
 	const [lobbyTotalRounds, setLobbyTotalRounds] = useState(10)
 
-	const BACKEND_URL = "localhost:4005"
-	//const BACKEND_URL = "https://quizbackend.bwiggenhauser.de"
+	//const BACKEND_URL = "localhost:4005"
+	const BACKEND_URL = "https://quizbackend.bwiggenhauser.de"
 
 	useEffect(() => {
 		setShowLoading(false)
