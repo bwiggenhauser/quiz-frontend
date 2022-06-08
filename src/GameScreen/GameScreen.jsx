@@ -29,7 +29,7 @@ export default function GameScreen(props) {
 		return objs.sort((a, b) => b.score - a.score)
 	}
 
-	if (Object.keys(props.gameinfo).length === 0) {
+	if (props.showLoadingSpinner === true) {
 		return (
 			<div className="flex justify-center items-center text-center">
 				<Rings height="200" width="200" color="#ffffff" ariaLabel="loading" />

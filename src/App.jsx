@@ -17,9 +17,15 @@ function App() {
 	const [answers, setAnswers] = useState({})
 	const [scores, setScores] = useState({})
 	const [myGame, setMyGame] = useState({})
+	const [showLoading, setShowLoading] = useState(false)
 
 	const BACKEND_URL = "localhost:4005"
 	//const BACKEND_URL = "https://quizbackend.bwiggenhauser.de"
+
+	useEffect(() => {
+		setShowLoading(false)
+		console.log("useEffect has been called")
+	}, [myGame])
 
 	useEffect(() => {
 		const socket = io(BACKEND_URL)
@@ -80,6 +86,11 @@ function App() {
 		socket.on("game-finished", (data) => {
 			setScores(data.scoreboard)
 			setStatus("finished")
+		})
+
+		socket.on("show-loading", () => {
+			console.log("Loading has been set!")
+			setShowLoading(true)
 		})
 
 		setSocket(socket)
@@ -149,6 +160,7 @@ function App() {
 					sendAnswerFunction={sendAnswer}
 					answers={answers}
 					nextQuestionFunction={nextQuestion}
+					showLoadingSpinner={showLoading}
 				/>
 			</div>
 		)
