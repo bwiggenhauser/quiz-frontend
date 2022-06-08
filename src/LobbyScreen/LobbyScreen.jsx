@@ -31,6 +31,7 @@ export default function LobbyScreen(props) {
 					className="text-darkest-blue p-2 w-20 rounded-xl text-center"
 					value={props.totalRounds}
 					onChange={changeTotalRounds}>
+					<option value={5}>5</option>
 					<option value={10}>10</option>
 					<option value={20}>20</option>
 					<option value={30}>30</option>
