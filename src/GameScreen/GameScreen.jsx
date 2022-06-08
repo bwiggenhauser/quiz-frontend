@@ -1,5 +1,6 @@
 import React from "react"
 import Answer from "../Answer/Answer"
+import { Rings } from "react-loader-spinner"
 
 export default function GameScreen(props) {
 	// NÄCHSTE FRAGE BUTTON WIRD ERST ANGEZEIGT, WENN ALLE CLIENTS EINE ANTWORT ABGEGEBEN HABEN
@@ -30,8 +31,8 @@ export default function GameScreen(props) {
 
 	if (Object.keys(props.gameinfo).length === 0) {
 		return (
-			<div>
-				<loader />
+			<div className="flex justify-center items-center text-center">
+				<Rings height="200" width="200" color="#ffffff" ariaLabel="loading" />
 			</div>
 		)
 	} else {
