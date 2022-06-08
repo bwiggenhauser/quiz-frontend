@@ -8,7 +8,7 @@ export default function Answer(props) {
 	}
 
 	return (
-		<div className="px-4 py-4 cursor-pointer bg-darkest-blue w-2/3 text-center mb-4 rounded-xl">
+		<div className="px-4 py-4 cursor-pointer bg-darkest-blue w-2/3 mb-4 rounded-xl flex flex-row justify-start">
 			<input
 				className="cursor-pointer"
 				type="radio"
