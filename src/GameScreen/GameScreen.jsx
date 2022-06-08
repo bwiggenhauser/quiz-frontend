@@ -67,9 +67,9 @@ export default function GameScreen(props) {
 				{/* Player Scores */}
 				<div className="py-8 w-1/3 flex flex-col items-start justify-start">
 					<h1 className="text-2xl mb-8">Scoreboard</h1>
-					{orderPlayersArrayByScore(props.gameinfo.scoreboard).map((player) => (
+					{orderPlayersArrayByScore(props.gameinfo.scoreboard).map((player, value) => (
 						<p key={player.name} className="mb-2 text-base">
-							{player.name}: {player.score}
+							{value + 1}. {player.name}: {player.score}
 						</p>
 					))}
 
