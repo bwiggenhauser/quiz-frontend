@@ -46,3 +46,7 @@
 	-webkit-transform: scale(1);
 	transform: scale(1);
 }
+
+.correct {
+	background-color: #59a5d8ff !important;
+}
