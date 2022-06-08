@@ -6,6 +6,7 @@ import LandingScreen from "./LandingScreen/LandingScreen"
 import Title from "./Title/Title"
 import LobbyScreen from "./LobbyScreen/LobbyScreen"
 import ScoresScreen from "./ScoresScreen/ScoresScreen"
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 function App() {
 	const [socket, setSocket] = useState(null)
