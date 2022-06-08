@@ -61,8 +61,9 @@ function App() {
 		})
 
 		socket.on("show-correct-answer", (data) => {
+			console.log(data)
 			const id = data + "div"
-			document.getElementById(id).classList.add("bg-blue")
+			document.getElementById(id).classList.add("bg-dark-blue")
 		})
 
 		socket.on("all-players", (allPlayers) => {
