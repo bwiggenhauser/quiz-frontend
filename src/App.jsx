@@ -60,6 +60,11 @@ function App() {
 			setMyGame(data)
 		})
 
+		socket.on("show-correct-answer", (data) => {
+			const id = data + "div"
+			document.getElementById(id).classList.add("bg-blue")
+		})
+
 		socket.on("all-players", (allPlayers) => {
 			console.log(allPlayers)
 		})
