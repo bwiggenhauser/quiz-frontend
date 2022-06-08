@@ -13,6 +13,20 @@ export default function LobbyScreen(props) {
 				</p>
 			))}
 
+			{/* Change Total Rounds */}
+			<div className="flex flex-row text-white mt-16 items-center">
+				<p className="mr-4">Choose rounds:</p>
+				<select
+					id="roundsSelect"
+					className="text-darkest-blue p-2 w-20 rounded-xl text-center">
+					<option value={10}>10</option>
+					<option value={20}>20</option>
+					<option value={30}>30</option>
+					<option value={40}>40</option>
+					<option value={50}>50</option>
+				</select>
+			</div>
+
 			{/* Start Game Button */}
 			<button
 				onClick={props.startGameFunction}
