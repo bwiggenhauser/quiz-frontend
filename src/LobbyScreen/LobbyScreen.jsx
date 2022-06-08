@@ -1,6 +1,11 @@
 import React from "react"
 
 export default function LobbyScreen(props) {
+	function startGame() {
+		const val = document.getElementById("roundsSelect").value
+		props.startGameFunction(val)
+	}
+
 	return (
 		<div className="flex flex-col justify-start items-center mt-8">
 			<h1 className="text-center text-white text-2xl">{"Lobby: " + props.lobbyName}</h1>
