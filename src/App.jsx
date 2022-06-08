@@ -104,8 +104,11 @@ function App() {
 		socket.emit("change-client-name", newName)
 	}
 
-	function startGame() {
-		socket.emit("start-game", lobby)
+	function startGame(roundsNum) {
+		socket.emit("start-game", {
+			room: lobby,
+			totalRounds: roundsNum,
+		})
 	}
 
 	function sendAnswer(answer) {
