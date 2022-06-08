@@ -6,6 +6,11 @@ export default function LobbyScreen(props) {
 		props.startGameFunction(val)
 	}
 
+	function changeTotalRounds() {
+		const val = document.getElementById("roundsSelect").value
+		props.changeLobbyTotalRoundsFunction(val)
+	}
+
 	return (
 		<div className="flex flex-col justify-start items-center mt-8">
 			<h1 className="text-center text-white text-2xl">{"Lobby: " + props.lobbyName}</h1>
@@ -23,7 +28,9 @@ export default function LobbyScreen(props) {
 				<p className="mr-4">Choose rounds:</p>
 				<select
 					id="roundsSelect"
-					className="text-darkest-blue p-2 w-20 rounded-xl text-center">
+					className="text-darkest-blue p-2 w-20 rounded-xl text-center"
+					value={props.totalRounds}
+					onChange={changeTotalRounds}>
 					<option value={10}>10</option>
 					<option value={20}>20</option>
 					<option value={30}>30</option>

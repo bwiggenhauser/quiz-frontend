@@ -18,6 +18,7 @@ function App() {
 	const [scores, setScores] = useState({})
 	const [myGame, setMyGame] = useState({})
 	const [showLoading, setShowLoading] = useState(false)
+	const [lobbyTotalRounds, setLobbyTotalRounds] = useState(10)
 
 	const BACKEND_URL = "localhost:4005"
 	//const BACKEND_URL = "https://quizbackend.bwiggenhauser.de"
@@ -45,6 +46,10 @@ function App() {
 			console.log(`Received my room members:`)
 			console.log(roomMembers)
 			setLobbyMembers(roomMembers)
+		})
+
+		socket.on("lobby-total-rounds", (data) => {
+			setLobbyTotalRounds(data)
 		})
 
 		socket.on("game-data", async (data) => {
@@ -115,6 +120,13 @@ function App() {
 		socket.emit("change-client-name", newName)
 	}
 
+	function changeLobbyTotalRounds(r) {
+		socket.emit("change-lobby-total-rounds", {
+			room: lobby,
+			totalRounds: r,
+		})
+	}
+
 	function startGame(roundsNum) {
 		socket.emit("start-game", {
 			room: lobby,
@@ -148,6 +160,8 @@ function App() {
 					lobbyName={lobby}
 					members={lobbyMembers}
 					startGameFunction={startGame}
+					totalRounds={lobbyTotalRounds}
+					changeLobbyTotalRoundsFunction={changeLobbyTotalRounds}
 				/>
 			</div>
 		)
