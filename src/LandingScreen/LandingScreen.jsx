@@ -14,7 +14,7 @@ export default function LandingScreen(props) {
 	}
 
 	return (
-		<div className="flex flex-col justify-start items-center mt-8">
+		<div className="flex flex-col justify-start items-center mt-16">
 			{/* Change Player Name */}
 			<div>
 				<input
