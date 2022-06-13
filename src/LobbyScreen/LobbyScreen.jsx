@@ -13,31 +13,43 @@ export default function LobbyScreen(props) {
 
 	return (
 		<div className="flex flex-col justify-start items-center mt-8">
-			<h1 className="text-center text-white text-2xl">{"Lobby: " + props.lobbyName}</h1>
+			<div className="flex flex-col items-center bg-dark-blue w-1/5 py-8 rounded-xl shadow-xl">
+				<h1 className="text-2xl text-white font-bold">Lobby Settings</h1>
+				<div className="flex flex-col items-start">
+					<h1 className="text-center text-white text-base pt-8">
+						{"Lobby name: " + props.lobbyName}
+					</h1>
 
-			{/* Lobby Members */}
-			<h1 className="mt-16 pb-2 text-center text-white text-2xl">Spieler:</h1>
-			{props.members.map((e) => (
-				<p key={e} className="text-white text-xl text-center">
-					{e}
-				</p>
-			))}
+					{/* Change Total Rounds */}
+					<div className="flex flex-row text-white items-center pt-2">
+						<p className="mr-4 text-base">Total rounds:</p>
+						<select
+							id="roundsSelect"
+							className="text-darkest-blue py-1 w-16 rounded-xl text-center"
+							value={props.totalRounds}
+							onChange={changeTotalRounds}>
+							<option value={5}>5</option>
+							<option value={10}>10</option>
+							<option value={20}>20</option>
+							<option value={30}>30</option>
+							<option value={40}>40</option>
+							<option value={50}>50</option>
+						</select>
+					</div>
+				</div>
+			</div>
 
-			{/* Change Total Rounds */}
-			<div className="flex flex-row text-white mt-16 items-center">
-				<p className="mr-4">Choose rounds:</p>
-				<select
-					id="roundsSelect"
-					className="text-darkest-blue p-2 w-20 rounded-xl text-center"
-					value={props.totalRounds}
-					onChange={changeTotalRounds}>
-					<option value={5}>5</option>
-					<option value={10}>10</option>
-					<option value={20}>20</option>
-					<option value={30}>30</option>
-					<option value={40}>40</option>
-					<option value={50}>50</option>
-				</select>
+			<div className="flex flex-col items-center bg-dark-blue w-1/5 py-8 rounded-xl shadow-xl mt-8">
+				{/* Lobby Members */}
+				<h1 className="text-2xl text-white font-bold">Players</h1>
+                <div className="pt-8">
+
+				{props.members.map((e) => (
+                    <p key={e} className="text-white text-base text-center">
+						{e}
+					</p>
+				))}
+                </div>
 			</div>
 
 			{/* Start Game Button */}
