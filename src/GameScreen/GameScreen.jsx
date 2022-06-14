@@ -60,13 +60,13 @@ export default function GameScreen(props) {
 							<div
 								onClick={sendAnswer}
 								className="flex justify-center items-center border-2 hover:border-white w-2/5 h-16 rounded-xl bg-blue hover:bg-darkest-blue border-blue transition-all cursor-pointer shadow-xl">
-								<p>Antwort abgeben</p>
+								<p>Send Answer</p>
 							</div>
 							{showNextQuestionButton && (
 								<button
 									onClick={sendNextQuestion}
 									className="transition-all shadow-xl w-2/5 h-16 ml-8 cursor-pointer bg-blue hover:bg-darkest-blue border-2 border-blue hover:border-white rounded-xl">
-									Nächste Frage
+									Next Question
 								</button>
 							)}
 						</div>
