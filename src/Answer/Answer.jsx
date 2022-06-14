@@ -10,7 +10,7 @@ export default function Answer(props) {
 	return (
 		<div
 			id={props.text + "div"}
-			className="px-4 py-4 cursor-pointer bg-darkest-blue w-2/3 mb-4 rounded-xl flex flex-row justify-start">
+			className="px-4 py-4 cursor-pointer mb-4 rounded-xl flex flex-row justify-start">
 			<input
 				className="cursor-pointer"
 				type="radio"
