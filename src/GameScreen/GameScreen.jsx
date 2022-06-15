@@ -42,10 +42,10 @@ export default function GameScreen(props) {
 				<div className="flex flex-col justify-center items-center w-2/3">
 					<div className="bg-dark-blue rounded-xl shadow-xl py-8 w-2/3 px-8 mt-8">
 						<div className="flex flex-row justify-between items-start">
-							<h1 className="text-3xl mb-8">
+							<h1 className="text-2xl mb-8">
 								{props.gameinfo.current_question.question}
 							</h1>
-							<h1 className="text-3xl ml-8 w-32 text-right">
+							<h1 className="text-2xl ml-8 w-32 text-right">
 								{props.gameinfo.current_round} / {props.gameinfo.total_rounds}
 							</h1>
 						</div>
@@ -76,7 +76,7 @@ export default function GameScreen(props) {
 				{/* Player Scores */}
 				<div className="w-1/3 flex flex-col items-start justify-start">
 					<div className="bg-dark-blue rounded-xl shadow-xl py-8 w-2/3 px-8 mt-8">
-						<h1 className="text-3xl mb-8 font-bold">Scoreboard</h1>
+						<h1 className="text-2xl mb-8 font-bold">Scoreboard</h1>
 						{orderPlayersArrayByScore(props.gameinfo.scoreboard).map(
 							(player, value) => (
 								<p key={player.name} className="mb-2 text-base">
