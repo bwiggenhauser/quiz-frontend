@@ -45,6 +45,11 @@ export default function GameScreen(props) {
 				{/* Question Container */}
 				<div className="flex flex-col justify-center items-end mr-16 w-3/5">
 					<div className="bg-dark-blue rounded-xl shadow-xl py-8 px-8 mt-8 w-4/5">
+						<div className="mb-4">
+							<h1 className="mb-1">
+								{`${props.gameinfo.current_question.category} | ${props.gameinfo.current_question.difficulty}`}
+							</h1>
+						</div>
 						<div className="flex flex-row justify-between items-start">
 							<h1 className="text-2xl mb-8">
 								{props.gameinfo.current_question.question}
