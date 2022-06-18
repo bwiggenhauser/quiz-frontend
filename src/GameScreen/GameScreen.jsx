@@ -19,6 +19,10 @@ export default function GameScreen(props) {
 		if (answer !== undefined) {
 			props.sendAnswerFunction(answer)
 		}
+		for (const radio of document.getElementsByName("answers")) {
+			console.log(radio)
+			document.getElementById(radio.id).disabled = true
+		}
 	}
 
 	function sendNextQuestion() {
@@ -37,10 +41,10 @@ export default function GameScreen(props) {
 		)
 	} else {
 		return (
-			<div className="bg-darkest-blue flex flex-row justify-between items-start text-white">
+			<div className="bg-darkest-blue flex flex-row justify-center items-start text-white">
 				{/* Question Container */}
-				<div className="flex flex-col justify-center items-center w-2/3">
-					<div className="bg-dark-blue rounded-xl shadow-xl py-8 w-2/3 px-8 mt-8">
+				<div className="flex flex-col justify-center items-end mr-16 w-3/5">
+					<div className="bg-dark-blue rounded-xl shadow-xl py-8 px-8 mt-8 w-4/5">
 						<div className="flex flex-row justify-between items-start">
 							<h1 className="text-2xl mb-8">
 								{props.gameinfo.current_question.question}
@@ -74,7 +78,7 @@ export default function GameScreen(props) {
 				</div>
 
 				{/* Player Scores */}
-				<div className="w-1/3 flex flex-col items-start justify-start">
+				<div className="w-1/4 flex flex-col">
 					<div className="bg-dark-blue rounded-xl shadow-xl py-8 w-2/3 px-8 mt-8">
 						<h1 className="text-2xl mb-8 font-bold">Scoreboard</h1>
 						{orderPlayersArrayByScore(props.gameinfo.scoreboard).map(
